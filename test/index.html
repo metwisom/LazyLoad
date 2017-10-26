@@ -1,8 +1,46 @@
-<script type="text/javascript" src='/mSrc.js'></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="images">
+		<img width="20%" msrc="http://lorempixel.com/400/200/sports/1/" alt="">
+		<img width="20%" msrc="http://lorempixel.com/400/200/sports/2/" alt="">
+		<img width="20%" msrc="http://lorempixel.com/400/200/sports/3/" alt="">
+	</div>
+	<div>
+		<button onclick="updateAttrs()">change msrc attr</button>
+		<button onclick="addElement()">add new element</button>
+	</div>
+</body>
+<script type="text/javascript" src='../dist/bundle.min.js'></script>
+<script type="text/javascript">
+	document.addEventListener("DOMContentLoaded", () => {
+		window.mSrc.init();
+		window.mSrc.watchElement(document.querySelector('.images'));
+	});
 
-<img mSrc='https://img-fotki.yandex.ru/get/371503/24006781.34f/0_ed2fe_b62416d9_orig.jpg' width='200'> 
-<img mSrc='https://img-fotki.yandex.ru/get/373511/42067314.7e/0_a22da_9bd24cd6_orig.jpg' width='200'> 
-<img mSrc='https://img-fotki.yandex.ru/get/483127/5935200.98/0_ed799_fb88eefb_XXXL.jpg' width='200'> 
-<img mSrc='https://img-fotki.yandex.ru/get/93500/152961670.2a5/0_155613_d5007681_orig.jpg' width='200'> 
-<img mSrc='https://img-fotki.yandex.ru/get/362196/123755248.63/0_1450c0_bab79381_orig.jpg' width='200'> 
-<img mSrc='https://img-fotki.yandex.ru/get/475949/37575677.c/0_cb02c_4768abfa_orig.jpg' width='200'> 
+	function getRandomArbitary(min, max) {
+	  	return Math.floor(Math.random() * (max - min + 1)) + min;
+	}
+
+
+	function updateAttrs() {
+		document.querySelectorAll("img").forEach(function(element) {
+			element.setAttribute("msrc", "http://lorempixel.com/400/200/sports/"+getRandomArbitary(1,9)+"/");
+		});
+	};
+
+	function addElement() {
+		var element = document.createElement("img");
+		element.setAttribute("msrc", "http://lorempixel.com/400/200/sports/"+getRandomArbitary(1,9)+"/");
+		element.style.width = "20%";
+
+		var el = document.querySelector('.images');
+		el.append(element);
+	};
+</script>
+</html>
+

@@ -1,0 +1,30 @@
+{
+  "name": "msrc",
+  "version": "1.0.0",
+  "description": "Скрипт пост-загрузки, изображения в теге <img> начнут прогружаться только когда все основные ресурсы будут полностью загружены и обработаны.",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/metwisom/mSrc.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/metwisom/mSrc/issues"
+  },
+  "homepage": "https://github.com/metwisom/mSrc#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "webpack": "^3.8.1"
+  }
+}
