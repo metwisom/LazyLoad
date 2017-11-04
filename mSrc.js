@@ -1,30 +1,30 @@
 'use strict';
 
 var mSrc = {
-	init: function(){		
+	init: function(){
 		document.addEventListener("DOMContentLoaded", () => {
-			this.targetNodes = document.querySelectorAll("img[mSrc]");
-			this.image = new Image();
-			this.image.onload= () => {
-		    	this.targetNodes[this.index].setAttribute('src', this.src)
-		    	this.targetNodes[this.index].removeAttribute('mSrc')
-				this.index++;   	
-		    	setTimeout(() => {this.load()}, this.interval)	 
-		    }	 
-			this.load();
+			mSrc.targetNodes = document.querySelectorAll("img[mSrc]");
+			mSrc.image = new Image();
+			mSrc.image.onload= () => {
+				mSrc.targetNodes[mSrc.index].setAttribute('src', mSrc.src)
+				mSrc.targetNodes[mSrc.index].removeAttribute('mSrc')
+				mSrc.index++;
+				setTimeout(() => {mSrc.load()}, mSrc.interval)
+			}
+			mSrc.load();
 		});
 	},
 	load: function(){
-		if(this.targetNodes.length <= this.index){
-			return this.clear();
+		if(mSrc.targetNodes.length <= mSrc.index){
+			return mSrc.clear();
 		}
-		this.src = this.targetNodes[this.index].getAttribute('mSrc');
-	    this.image.src = this.src;
+		mSrc.src = mSrc.targetNodes[mSrc.index].getAttribute('mSrc');
+		mSrc.image.src = mSrc.src;
 	},
 	clear: function(){
-		this.src = null;
-		this.image = null;
-		this.targetNodes = null;
+		mSrc.src = null;
+		mSrc.image = null;
+		mSrc.targetNodes = null;
 		return true;
 	},
 	interval: 30,

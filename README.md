@@ -8,4 +8,4 @@
 
 
 # Лицензия
-MIT
+<a href="/LICENSE.md">MIT</a>
