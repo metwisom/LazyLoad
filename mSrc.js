@@ -24,19 +24,14 @@ var mSrc = {
 		var BreakForMSrcStart = {};
 		var target = document.getElementsByTagName('body')[0];
 		var observer = new MutationObserver(function(mutations){
-			try{
-				mutations.forEach(function(mutation){
-					mutation.addedNodes.forEach(function(item){
-						if(item.nodeName == 'IMG'){
-							throw BreakForMSrcStart;
-						}
-					})
-				});
-			}catch (e){
-				if (e === BreakForMSrcStart){
-					mSrc.start()
-				}
-			}
+			mutations.forEach(function(mutation){
+				mutation.addedNodes.forEach(function(item){
+					if(item.nodeName == 'IMG'){
+						mSrc.start();
+						return;
+					}
+				})
+			});
 		});
 		var config = {childList: true};
 		observer.observe(target, config);
