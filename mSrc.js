@@ -24,20 +24,22 @@ var mSrc = {
 		var BreakForMSrcStart = {};
 		var target = document.getElementsByTagName('body')[0];
 		var is_found = false;
+		//Проверяет являится ли нода изображением
+		//Если есть возвращает true, если нет false
+		var isImg = function (node) {
+			return node.nodeName == 'IMG';
+		}
+		//Проверяет имеет ли мутация в списке нод - ноду изображение
+		var hasImgNode = function(mutation) {
+			return mutation.addedNodes.some(isImg);
+		}
+
 		var observer = new MutationObserver(function(mutations){
-			mutations.forEach(function(mutation){
-				mutation.addedNodes.forEach(function(item){
-					if(item.nodeName == 'IMG'){
-						is_found = true;
-						mSrc.start();
-						return;
-					}
-				})
-				if(is_found) {
-					return;
-				}
-			});
+			if( mutations.some(hasImgNode) ) {
+				mSrc.start();
+			}
 		});
+
 		var config = {childList: true};
 		observer.observe(target, config);
 	},
