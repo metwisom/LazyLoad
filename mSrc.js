@@ -21,7 +21,6 @@ var mSrc = {
 		mSrc.load();
 	},
 	createHook: function(){
-		var BreakForMSrcStart = {};
 		var target = document.getElementsByTagName('body')[0];
 		var is_found = false;
 		//Проверяет являится ли нода изображением
