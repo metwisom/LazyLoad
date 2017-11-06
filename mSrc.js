@@ -22,23 +22,17 @@ var mSrc = {
 	},
 	createHook: function(){
 		var target = document.getElementsByTagName('body')[0];
-		var is_found = false;
-		//Проверяет являится ли нода изображением
-		//Если есть возвращает true, если нет false
 		var isImg = function (node) {
 			return node.nodeName == 'IMG';
 		}
-		//Проверяет имеет ли мутация в списке нод - ноду изображение
 		var hasImgNode = function(mutation) {
 			return mutation.addedNodes.some(isImg);
 		}
-
 		var observer = new MutationObserver(function(mutations){
 			if( mutations.some(hasImgNode) ) {
 				mSrc.start();
 			}
 		});
-
 		var config = {childList: true};
 		observer.observe(target, config);
 	},
