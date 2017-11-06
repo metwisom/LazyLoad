@@ -23,14 +23,19 @@ var mSrc = {
 	createHook: function(){
 		var BreakForMSrcStart = {};
 		var target = document.getElementsByTagName('body')[0];
+		var is_found = false;
 		var observer = new MutationObserver(function(mutations){
 			mutations.forEach(function(mutation){
 				mutation.addedNodes.forEach(function(item){
 					if(item.nodeName == 'IMG'){
+						is_found = true;
 						mSrc.start();
 						return;
 					}
 				})
+				if(is_found) {
+					return;
+				}
 			});
 		});
 		var config = {childList: true};
