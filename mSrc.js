@@ -26,7 +26,7 @@ var mSrc = {
 			return node.nodeName == 'IMG';
 		}
 		var hasImgNode = function(mutation) {
-			return mutation.addedNodes.some(isImg);
+			return Array.from(mutation.addedNodes).some(isImg);
 		}
 		var observer = new MutationObserver(function(mutations){
 			if( mutations.some(hasImgNode) ) {
