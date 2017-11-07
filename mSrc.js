@@ -21,21 +21,16 @@ var mSrc = {
 		mSrc.load();
 	},
 	createHook: function(){
-		var BreakForMSrcStart = {};
 		var target = document.getElementsByTagName('body')[0];
+		var isImg = function (node) {
+			return node.nodeName == 'IMG';
+		}
+		var hasImgNode = function(mutation) {
+			return Array.from(mutation.addedNodes).some(isImg);
+		}
 		var observer = new MutationObserver(function(mutations){
-			try{
-				mutations.forEach(function(mutation){
-					mutation.addedNodes.forEach(function(item){
-						if(item.nodeName == 'IMG'){
-							throw BreakForMSrcStart;
-						}
-					})
-				});
-			}catch (e){
-				if (e === BreakForMSrcStart){
-					mSrc.start()
-				}
+			if( mutations.some(hasImgNode) ) {
+				mSrc.start();
 			}
 		});
 		var config = {childList: true};
