@@ -4,7 +4,7 @@
 # Использование
 Скрипт подключаем в \<head\>, теперь все картинки \<img\> будут загружаться только когда это необходимо.
 
-<a target='_blank' href="https://metwisom.github.io/mSrc">Тест</a>
+<a target='_blank' href="https://metwisom.github.io/mSrc/test">Тест</a>
 
 # Лицензия
 <a href="/LICENSE.md">MIT</a>
