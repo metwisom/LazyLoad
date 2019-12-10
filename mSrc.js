@@ -1,59 +1,32 @@
 'use strict';
 
-var mSrc = {
-	attribute_name: 'mSrc',
-	interval: 30,
-	init: function(){
-		document.addEventListener('DOMContentLoaded', () => {
-			mSrc.start();
-			mSrc.createHook();
-		});
-	},
-	start: function(){
-		mSrc.targetNodes = document.querySelectorAll('img[' + mSrc.attribute_name + ']');
-		mSrc.image = new Image();
-		mSrc.image.onload = () => {
-			mSrc.targetNodes[mSrc.index].setAttribute('src', mSrc.src)
-			mSrc.targetNodes[mSrc.index].removeAttribute(mSrc.attribute_name)
-			mSrc.index++;
-			setTimeout(() => {mSrc.load()}, mSrc.interval)
-		}
-		mSrc.load();
-	},
-	createHook: function(){
-		var target = document.getElementsByTagName('body')[0];
-		var isImg = function (node) {
-			return node.nodeName == 'IMG';
-		}
-		var hasImgNode = function(mutation) {
-			return Array.from(mutation.addedNodes).some(isImg);
-		}
-		var observer = new MutationObserver(function(mutations){
-			if( mutations.some(hasImgNode) ) {
-				mSrc.start();
-			}
-		});
-		var config = {childList: true};
-		observer.observe(target, config);
-	},
-	load: function(){
-		if(mSrc.targetNodes.length <= mSrc.index){
-			return mSrc.clear();
-		}
-		mSrc.src = mSrc.targetNodes[mSrc.index].getAttribute(mSrc.attribute_name);
-		mSrc.image.src = mSrc.src;
-	},
-	clear: function(){
-		mSrc.src = null;
-		mSrc.image = null;
-		mSrc.index = 0;
-		mSrc.targetNodes = null;
-		return true;
-	},
-	index: 0,
-	src: null,
-	image: null,
-	targetNodes: null
+{
+    let isElementInViewport = el => {
+        let scroll = window.scrollY || window.pageYOffset
+        let boundsTop = el.getBoundingClientRect().top + scroll
+        let viewport = { top: scroll, bottom: scroll + window.innerHeight }
+        let bounds = { top: boundsTop, bottom: boundsTop + el.clientHeight }
+        return (bounds.bottom >= viewport.top && bounds.bottom <= viewport.bottom)
+            || (bounds.top <= viewport.bottom && bounds.top >= viewport.top);
+    }
+
+    let elements = []
+
+    new MutationObserver(mutations => {
+        mutations = mutations.filter(mutation => elements.push(...Array.from(mutation.addedNodes).filter(node => node.nodeName == 'IMG' && (node.msrc = node.src) && (node.src = '#'))))
+        сrawl_items()
+    }).observe(document, { childList: true, subtree: true, });
+
+    let сrawl_items = () => {
+        elements.forEach((element, index) => {
+            if (isElementInViewport(element)) {
+                element.src = element.msrc
+                delete elements[index];
+            }
+        });
+    }
+
+    window.addEventListener('scroll', сrawl_items);
 }
 
-mSrc.init()
+
